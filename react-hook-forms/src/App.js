@@ -10,20 +10,10 @@ import "./App.css";
 const schema = yup
   .object({
     name: yup.string().required("O nome é obrigatório"),
-    email: yup
-      .string()
-      .email("Digite um email Válido")
-      .required("O email é obrigatório"),
-    password: yup
-      .string()
-      .min(6, "A senha deve ter pelo menos 6 dígitos")
-      .required("A senha é obrigatório"),
-    confirmPassword: yup
-      .string()
-      .required("Confirmar a senha é obrigatório")
-      .oneOf([yup.ref("password")], "As senhas devem ser iguais"),
-  })
-  .required();
+    email: yup.string().email("Digite um email Válido").required("O email é obrigatório"),
+    password: yup.string().min(6, "A senha deve ter pelo menos 6 dígitos").required("A senha é obrigatório"),
+    confirmPassword: yup.string().required("Confirmar a senha é obrigatório").oneOf([yup.ref("password")], "As senhas devem ser iguais"),
+  }).required();
 
 function App() {
   const {
@@ -46,25 +36,22 @@ function App() {
       <img src={FormLogo} alt="" />
       <label>
         Nome
-        <input type="text" {...register("name", { required: true })} />
+        <input type="text" {...register("name")} />
         <span>{errors.name?.message}</span>
       </label>
       <label>
         Email
-        <input type="text" {...register("email", { required: true })} />
+        <input type="text" {...register("email")} />
         <span>{errors.email?.message}</span>
       </label>
       <label>
         Senha
-        <input type="password" {...register("password", { required: true })} />
+        <input type="password" {...register("password")} />
         <span>{errors.password?.message}</span>
       </label>
       <label>
         Confirmar Senha
-        <input
-          type="password"
-          {...register("confirmPassword", { required: true })}
-        />
+        <input type="password" {...register("confirmPassword")} />
         <span>{errors.confirmPassword?.message}</span>
       </label>
 
